@@ -40,7 +40,11 @@
                                 <th scope="row">{{ $producto->id }}</th>
                                 <td>{{ $producto->nombre}}</td>
                                 <td>{{ $producto->talla}}</td>
-                                <td>{{ $producto->id_marca}}</td>
+                                @foreach ($marcas as $marca)
+                                    @if ($producto->id_marca == $marca->id)
+                                        <td>{{ $marca->nombre}}</td>
+                                    @endif
+                                @endforeach
                                 <td>{{ $producto->cantidad_inventario}}</td>
                                 <td>{{ $producto->fecha_embarque}}</td>
                                 <form action="/producto/{{ $producto->id }}" method="POST">
