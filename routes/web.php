@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,4 @@ Route::get('/', function () {
 
 
 Route::resource('marca', MarcaController::class);
+Route::resource('producto', ProductoController::class);

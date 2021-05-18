@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Marca;
 use Illuminate\Http\Request;
 
 class MarcaController extends Controller
@@ -13,7 +14,10 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        return view("marca.list");
+        $marcas = Marca::all();
+        return view("marca.list", [
+            'marcas' => $marcas
+        ]);
     }
 
     /**
@@ -23,7 +27,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        //
+        return view("marca.add");
     }
 
     /**
@@ -34,51 +38,85 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validaciones
+        $validData = $request->validate([
+            'nombre' => 'required',
+            'referencia' => 'required'
+        ]);
+
+        $marca = new Marca();
+
+        $marca->nombre = $validData["nombre"];
+        $marca->referencia = $validData["referencia"];
+
+        $marca->save();
+
+        return redirect("/marca");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Marca $marca)
     {
-        //
+        $registro = Marca::find($marca);
+        
+        return view('marca.show', [
+            'marca' => $marca
+        ]);
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Marca $marca)
     {
-        //
+        return view('marca.edit', [
+            'marca' => $marca
+        ]);
+        
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Marca $marca)
     {
-        //
+        //Validaciones
+        $validData = $request->validate([
+            'nombre' => 'required',
+            'referencia' => 'required'
+        ]);
+
+        $marca->nombre = $validData["nombre"]; 
+        $marca->referencia = $validData["referencia"];
+        $marca->save();
+        
+        return redirect('/marca');
+        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Marca $marca)
     {
-        //
+        Marca::destroy($marca->id);
+
+        return redirect("/producto");
     }
 }

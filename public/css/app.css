@@ -10002,3 +10002,22 @@ h3 {
     border-color: #dee2e6;
   }
 }
+
+/* Start custom styles */
+
+.new-marca{
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 22px; 
+  
+  border-left: 2px solid #17B7E2;
+  padding: 5px;
+}
+
+.new-marca:hover{
+  color: white;
+  text-decoration: none;
+  background-color: #17B7E2;
+  padding: 10px;
+  transition: 0.3s;
+  
+}
